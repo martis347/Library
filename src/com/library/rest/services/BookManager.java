@@ -9,26 +9,18 @@ import com.library.book.model.BookRequest;
 import com.library.book.model.BookResponse;
 
 @Consumes("application/json")
-@Produces("application/json")
+@Produces("application/json") //http://localhost:8080/Library/services/BookManager/
 public interface BookManager
 {
 	@POST
-	@Path("/fetchBookById/")
-	public BookResponse fetchBookById(BookRequest request);
-
+	@Path("/search/")
+	public BookResponse search(BookRequest request);
+	
 	@POST
-	@Path("/fetchAllBooks/")
-	public BookResponse fetchAllBooks(BookRequest request);
-
+	@Path("/getBook/")
+	public BookResponse getBook(BookRequest request);
+	
 	@POST
-	@Path("/insertBook/")
-	public BookResponse insertBook(BookRequest request);
-
-	@POST
-	@Path("/updateBook/")
-	public BookResponse updateBook(BookRequest request);
-
-	@POST
-	@Path("/deleteBook/")
-	public BookResponse deleteBook(BookRequest request);
+	@Path("/addBook/")
+	public BookResponse addBook(BookRequest request);
 }
