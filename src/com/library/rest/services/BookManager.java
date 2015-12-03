@@ -5,6 +5,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import org.json.simple.JSONObject;
+
+
 import com.library.book.model.BookRequest;
 import com.library.book.model.BookResponse;
 
@@ -18,7 +21,7 @@ public interface BookManager
 	
 	@POST
 	@Path("/getBook/")
-	public BookResponse getBook(BookRequest request);
+	public String getBook(JSONObject request);
 	
 	@POST
 	@Path("/addBook/")

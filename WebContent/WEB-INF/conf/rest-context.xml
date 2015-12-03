@@ -18,14 +18,16 @@
             <cxf:logging/>
         </cxf:features>
     </cxf:bus>
-
+	
+	
 	<bean id="bookDao" class="com.library.rest.dao.impl.BookManagerMemoryDao">
+		<property name="databaseName" value="any value"/>
 	</bean>
-
+	
 	<bean id="bookManagerService" class="com.library.rest.services.impl.BookManagerService">
 		<property name="bookDao" ref="bookDao"/>
 	</bean>
-
+	
 	<bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
 	
   	<jaxrs:server id="bookManagerREST" address="/BookManager">
@@ -33,7 +35,7 @@
   			<ref bean="bookManagerService"/>
   		</jaxrs:serviceBeans>
   		<jaxrs:providers>
-			<ref bean='jsonProvider' />
+			<ref bean='jsonProvider'/>
 		</jaxrs:providers>
   	</jaxrs:server>
 
