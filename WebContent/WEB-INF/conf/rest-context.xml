@@ -28,7 +28,7 @@
 
 	<bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
 	
-  	<jaxrs:server id="bookManagerREST" address="/rest/BookManager">
+  	<jaxrs:server id="bookManagerREST" address="/BookManager">
   		<jaxrs:serviceBeans>
   			<ref bean="bookManagerService"/>
   		</jaxrs:serviceBeans>

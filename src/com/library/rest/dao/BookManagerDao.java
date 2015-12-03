@@ -1,7 +1,6 @@
 package com.library.rest.dao;
 
 import java.util.List;
-
 import com.library.book.model.Book;
 
 public interface BookManagerDao
