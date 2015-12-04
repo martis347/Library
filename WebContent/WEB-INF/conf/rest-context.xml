@@ -20,8 +20,12 @@
     </cxf:bus>
 	
 	
-	<bean id="bookDao" class="com.library.rest.dao.impl.BookManagerMemoryDao">
-		<property name="databaseName" value="any value"/>
+	<bean id="bookDao" class="com.library.rest.dao.impl.BookManagerMemoryDao"/>
+	
+	<bean id="sqlDao" class="com.library.sql.dao.impl.SQLManager">
+    	<constructor-arg value="jdbc:sqlserver://localhost\\SQLEXPRESS:60548;databaseName=Stats;namedPipe=true"/>
+    	<constructor-arg value="sa"/>
+    	<constructor-arg value="test123"/>
 	</bean>
 	
 	<bean id="bookManagerService" class="com.library.rest.services.impl.BookManagerService">

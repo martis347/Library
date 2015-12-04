@@ -31,7 +31,7 @@ public class BookManagerService implements BookManager
 	public String getBook(JSONObject request) {
 		BookResponse resp = new BookResponse();
 		resp.message = (String) request.get("message");
-		System.out.println("InsertBook" + bookDao.insertBook("FF") + " getBook " + bookDao.getBook("fdsf"));
+		//System.out.println("InsertBook" + bookDao.insertBook("FF") + " getBook " + bookDao.getBook("fdsf"));
 		Gson gson = new Gson();
 		return gson.toJson(resp);
 	}
