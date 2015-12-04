@@ -21,7 +21,7 @@ public interface BookManager
 	
 	@POST
 	@Path("/getBook/")
-	public String getBook(JSONObject request);
+	public String getBook(JSONObject request) throws Exception;
 	
 	@POST
 	@Path("/addBook/")

@@ -8,7 +8,7 @@ public interface BookManagerDao
 {
 	public BookResponse search(BookRequest request);
 	
-	public Book getBook(BookRequest request);
+	public Book getBook(BookRequest request) throws Exception;
 	
 	public String insertBook(BookRequest request);
 }

@@ -1,12 +1,25 @@
 package com.library.book.model;
 
-import java.util.Date;
-
 public class BookRequest
 {
-	public Integer id;
-	public String name;
-	public String author;
-	public Date entryDate;
-	public String takenBy;
+	private String name;
+	private String author;
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	public String getName()
+	{
+		return name;
+	}
+	
+	public void setAuthor(String author)
+	{
+		this.author = author;
+	}	
+	public String getAuthor()
+	{
+		return author;
+	}
 }

@@ -4,57 +4,44 @@ import java.util.Date;
 
 public class Book
 {
-	private Integer id;
 	private String name;
 	private String author;
 	private Date entryDate;
 	private String takenBy;
-	public Integer getId() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public void setName(String name)
+	{
+		this.name = name;
 	}
-	public void setId(int i) {
-		// TODO Auto-generated method stub
-		
+	public String getName()
+	{
+		return name;
 	}
-	public Object getBirthDate() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public void setAuthor(String author)
+	{
+		this.author = author;
 	}
-	public Object getCity() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getAuthor()
+	{
+		return author;
 	}
-	public void setCity(Object city) {
-		// TODO Auto-generated method stub
-		
+	
+	public void setEntryDate(Date date)
+	{
+		this.entryDate = date;
 	}
-	public void setBirthDate(Object birthDate) {
-		// TODO Auto-generated method stub
-		
+	public Date getEntryDate()
+	{
+		return entryDate;
 	}
-	public Object getEmail() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public void setTakenBy(String takenBy)
+	{
+		this.takenBy = takenBy;
 	}
-	public Object getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public Object getState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public void setEmail(Object email) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setName(Object name2) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setState(Object state) {
-		// TODO Auto-generated method stub
-		
+	public String getTakenBy()
+	{
+		return takenBy;
 	}
 }
