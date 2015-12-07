@@ -9,11 +9,11 @@ import com.library.book.model.BookResponse;
 import com.library.converters.JsonConverter;
 import com.library.sql.dao.impl.SQLManager;
 
-public class AddBookHandler implements IHandler {
+public class GetBookHandler implements IHandler {
 
 	private SQLManager sqlManager;
 	
-	public AddBookHandler(SQLManager sqlManager)
+	public GetBookHandler(SQLManager sqlManager)
 	{
 		this.sqlManager = sqlManager;
 	}

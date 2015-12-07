@@ -11,7 +11,7 @@
     	<constructor-arg value="test123"/>
 	</bean>
 	
-	<bean id="addHandler" class="com.library.handlers.AddBookHandler">
+	<bean id="getHandler" class="com.library.handlers.GetBookHandler">
 		<constructor-arg ref="sqlDao"/>
 	</bean>
 

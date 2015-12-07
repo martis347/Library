@@ -23,7 +23,7 @@ public class WebApiHost implements IWebApiHost
 	}
 	
 	public String getBook(JSONObject request) {
-		handler = (IHandler) context.getBean("addHandler");
+		handler = (IHandler) context.getBean("getHandler");
 		BookResponse response = handler.Handle(request);
 		
 		Gson gson = new Gson();
