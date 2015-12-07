@@ -5,12 +5,13 @@ import com.library.rest.services.BookManager;
 import com.library.book.model.BookRequest;
 import com.library.book.model.BookResponse;
 import com.library.converters.JsonConverter;
-
+import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import com.google.gson.*;;
 
 public class BookManagerService implements BookManager
 {
+	private static final Logger logger = Logger.getLogger(BookManagerService.class.getName());
 	private BookManagerDao bookDao;
 
 	public void setBookDao(BookManagerDao bookDao)
@@ -24,6 +25,7 @@ public class BookManagerService implements BookManager
 	}
 	
 	public String getBook(JSONObject request) throws Exception {
+		logger.error("Test");
 		BookResponse resp = new BookResponse();
 		
 		BookRequest bookRequest = JsonConverter.convert(request);
