@@ -20,14 +20,14 @@
     </cxf:bus>
 	
 	
-	<bean id="bookManagerService" class="com.library.rest.services.impl.BookManagerService">
+	<bean id="webApiService" class="com.library.rest.services.impl.WebApiHost">
 	</bean>
 	
 	<bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
 	
-  	<jaxrs:server id="bookManagerREST" address="/BookManager">
+  	<jaxrs:server id="bookManagerREST" address="/">
   		<jaxrs:serviceBeans>
-  			<ref bean="bookManagerService"/>
+  			<ref bean="webApiService"/>
   		</jaxrs:serviceBeans>
   		<jaxrs:providers>
 			<ref bean='jsonProvider'/>

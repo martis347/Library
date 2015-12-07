@@ -1,6 +1,6 @@
 package com.library.rest.services.impl;
 
-import com.library.rest.services.BookManager;
+import com.library.rest.services.IWebApiHost;
 import com.library.book.model.BookRequest;
 import com.library.book.model.BookResponse;
 import com.library.handlers.IHandler;
@@ -11,7 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
-public class BookManagerService implements BookManager
+public class WebApiHost implements IWebApiHost
 {
 	IHandler handler;
 	

@@ -13,7 +13,7 @@ import com.library.book.model.BookResponse;
 
 @Consumes("application/json")
 @Produces("application/json") //http://localhost:8080/Library/services/BookManager/
-public interface BookManager
+public interface IWebApiHost
 {
 	@POST
 	@Path("/search/")
