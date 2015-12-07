@@ -10,6 +10,7 @@
 logs/**
 bin/**
 tmp/**
+build/*
 tmp/**/*
 *.tmp
 *.bak
@@ -17,7 +18,7 @@ tmp/**/*
 *~.nib
 local.properties
 .loadpath
-build/**
+
 
 # External tool builders
 .externalToolBuilders/
