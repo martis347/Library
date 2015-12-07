@@ -1,10 +1,12 @@
 package com.library.book.model;
 
+import org.apache.log4j.Logger;
 
 public class BookResponse
 {
 	private Book book;
 	private String message;
+	private static final Logger logger = Logger.getLogger(BookResponse.class.getName());
 	
 	public void setBook(Book book)
 	{
@@ -21,5 +23,16 @@ public class BookResponse
 	public Book getBook()
 	{
 		return book;
+	}
+	
+	public void onError(String message)
+	{
+		this.message = message;
+		logger.warn(message);
+	}
+	public void onError(String message, Exception e)
+	{
+		this.message = message;
+		logger.error("Unexpected error has occured", e);
 	}
 }

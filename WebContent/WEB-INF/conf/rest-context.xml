@@ -20,18 +20,7 @@
     </cxf:bus>
 	
 	
-	<bean id="sqlDao" class="com.library.sql.dao.impl.SQLManager">
-    	<constructor-arg value="jdbc:sqlserver://localhost\\SQLEXPRESS:60548;databaseName=Stats;namedPipe=true"/>
-    	<constructor-arg value="sa"/>
-    	<constructor-arg value="test123"/>
-	</bean>
-	
-	<bean id="bookDao" class="com.library.rest.dao.impl.BookManagerMemoryDao">
-		<property name="sqlManager" ref="sqlDao"/>
-	</bean>
-	
 	<bean id="bookManagerService" class="com.library.rest.services.impl.BookManagerService">
-		<property name="bookDao" ref="bookDao"/>
 	</bean>
 	
 	<bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>

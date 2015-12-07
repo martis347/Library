@@ -1,5 +1,7 @@
 package com.library.converters;
 
+import java.security.InvalidParameterException;
+
 import org.json.simple.JSONObject;
 import com.library.book.model.BookRequest;
 
@@ -14,7 +16,7 @@ public class JsonConverter {
 		
 		if(bookRequest.getAuthor() == null && bookRequest.getName() == null)
 		{
-			throw new Exception("You must set Name or Author of the book");
+			throw new InvalidParameterException("You must set Name or Author of the book");
 		}
 		
 		return bookRequest;

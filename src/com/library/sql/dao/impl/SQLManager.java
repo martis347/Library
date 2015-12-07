@@ -6,12 +6,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
 import com.library.book.model.Book;
+import com.library.book.model.BookResponse;
 
 public class SQLManager {
 	private String connectionString;
 	private String username;
 	private String password;
+	private static final Logger logger = Logger.getLogger(BookResponse.class.getName());
 	
 	private Connection connection;
 	
@@ -28,8 +32,7 @@ public class SQLManager {
         	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
         	connection = DriverManager.getConnection(connectionString, username, password);
         } catch (Exception e) {
-        	System.out.println("Error opening connection");
-            e.printStackTrace();
+        	logger.error("Error opening connection", e);
         }
 	}
 	public void closeConnection()
@@ -37,8 +40,7 @@ public class SQLManager {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			System.out.println("Error closing connection");
-			e.printStackTrace();
+			logger.error("Error closing connection", e);
 		}
 	}
 	
@@ -53,8 +55,7 @@ public class SQLManager {
 			ResultSet result = statement.executeQuery();
 			book = mapToBook(result);
 		} catch (SQLException e) {
-			System.out.println("Error selecting book by name");
-			e.printStackTrace();
+			logger.error("Error selecting book by name", e);
 		}
 		closeConnection();
 		
