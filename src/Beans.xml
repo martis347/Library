@@ -11,8 +11,17 @@
     	<constructor-arg value="test123"/>
 	</bean>
 	
+	<bean id="getConverter" class="com.library.converters.GetBookJsonConverter"/>
+	<bean id="addConverter" class="com.library.converters.AddBookJsonConverter"/>
+	
 	<bean id="getHandler" class="com.library.handlers.GetBookHandler">
 		<constructor-arg ref="sqlDao"/>
+		<constructor-arg ref="getConverter"/>
+	</bean>
+	
+	<bean id="addHandler" class="com.library.handlers.AddBookHandler">
+		<constructor-arg ref="sqlDao"/>
+		<constructor-arg ref="addConverter"/>
 	</bean>
 
 </beans>

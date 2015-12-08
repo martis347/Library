@@ -9,13 +9,13 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 import com.library.book.model.Book;
-import com.library.book.model.BookResponse;
+import com.library.book.model.GetBookResponse;
 
 public class SQLManager {
 	private String connectionString;
 	private String username;
 	private String password;
-	private static final Logger logger = Logger.getLogger(BookResponse.class.getName());
+	private static final Logger logger = Logger.getLogger(GetBookResponse.class.getName());
 	
 	private Connection connection;
 	
@@ -60,6 +60,11 @@ public class SQLManager {
 		closeConnection();
 		
 		return book;
+	}
+	
+	public void addBook()
+	{
+		
 	}
 	
 	private Book mapToBook(ResultSet result)

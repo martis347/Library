@@ -1,15 +1,14 @@
 package com.library.converters;
 
 import java.security.InvalidParameterException;
-
 import org.json.simple.JSONObject;
-import com.library.book.model.BookRequest;
+import com.library.book.model.GetBookRequest;
 
-public class JsonConverter {
+public class GetBookJsonConverter implements IJsonConverter{
 
-	public static BookRequest convert(JSONObject request) throws Exception
+	public GetBookRequest convert(JSONObject request) throws Exception
 	{
-		BookRequest bookRequest = new BookRequest();
+		GetBookRequest bookRequest = new GetBookRequest();
 		
 		bookRequest.setName((String)request.get("Name"));
 		bookRequest.setAuthor((String)request.get("Author"));
@@ -21,4 +20,6 @@ public class JsonConverter {
 		
 		return bookRequest;
 	}
+	
+	
 }

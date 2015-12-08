@@ -4,26 +4,29 @@ import java.security.InvalidParameterException;
 import java.sql.SQLDataException;
 import org.json.simple.JSONObject;
 import com.library.book.model.Book;
-import com.library.book.model.BookRequest;
-import com.library.book.model.BookResponse;
-import com.library.converters.JsonConverter;
+import com.library.book.model.GetBookRequest;
+import com.library.book.model.GetBookResponse;
+import com.library.converters.GetBookJsonConverter;
+import com.library.converters.IJsonConverter;
 import com.library.sql.dao.impl.SQLManager;
 
 public class GetBookHandler implements IHandler {
 
 	private SQLManager sqlManager;
+	private IJsonConverter converter;
 	
-	public GetBookHandler(SQLManager sqlManager)
+	public GetBookHandler(SQLManager sqlManager, IJsonConverter converter)
 	{
 		this.sqlManager = sqlManager;
+		this.converter = converter;
 	}
 	
-	public BookResponse Handle(JSONObject request) {
+	public GetBookResponse Handle(JSONObject request) {
 		
-		BookResponse response = new BookResponse();
+		GetBookResponse response = new GetBookResponse();
 		
 		try {
-			BookRequest bookRequest = JsonConverter.convert(request);
+			GetBookRequest bookRequest = (GetBookRequest) converter.convert(request);
 			
 			response.setBook(getBook(bookRequest));
 
@@ -38,7 +41,7 @@ public class GetBookHandler implements IHandler {
 		return response;
 	}
 	
-	private Book getBook(BookRequest request) throws Exception
+	private Book getBook(GetBookRequest request) throws Exception
 	{
 		Book book = null;
 		

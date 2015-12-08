@@ -2,11 +2,11 @@ package com.library.book.model;
 
 import org.apache.log4j.Logger;
 
-public class BookResponse
+public class GetBookResponse implements IBookResponse
 {
 	private Book book;
 	private String message;
-	private static final Logger logger = Logger.getLogger(BookResponse.class.getName());
+	private static final Logger logger = Logger.getLogger(GetBookResponse.class.getName());
 	
 	public void setBook(Book book)
 	{

@@ -8,8 +8,8 @@ import javax.ws.rs.Produces;
 import org.json.simple.JSONObject;
 
 
-import com.library.book.model.BookRequest;
-import com.library.book.model.BookResponse;
+import com.library.book.model.GetBookRequest;
+import com.library.book.model.GetBookResponse;
 
 @Consumes("application/json")
 @Produces("application/json") //http://localhost:8080/Library/services/BookManager/
@@ -17,7 +17,7 @@ public interface IWebApiHost
 {
 	@POST
 	@Path("/search/")
-	public BookResponse search(BookRequest request);
+	public String search(JSONObject request);
 	
 	@POST
 	@Path("/getBook/")
@@ -25,5 +25,5 @@ public interface IWebApiHost
 	
 	@POST
 	@Path("/addBook/")
-	public BookResponse addBook(BookRequest request);
+	public String addBook(JSONObject request);
 }
