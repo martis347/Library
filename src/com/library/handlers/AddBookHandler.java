@@ -27,7 +27,7 @@ private IJsonConverter converter;
 		try {
 			AddBookRequest bookRequest = (AddBookRequest) converter.convert(request);
 			
-			response.setMessage(addBook(bookRequest));
+			response.setMessage(sqlManager.addBook(bookRequest));
 
 		} catch (InvalidParameterException e) {
 			response.onError("You must provide at least two parameters");
@@ -39,14 +39,4 @@ private IJsonConverter converter;
 		
 		return response;
 	}
-	
-	private String addBook(AddBookRequest request) throws Exception
-	{
-		//sqlManager.getBookByName(request.getName());
-		
-		return "Test implementation";
-	}
-	
-	
-
 }

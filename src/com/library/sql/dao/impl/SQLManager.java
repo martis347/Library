@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
+import com.library.book.model.AddBookRequest;
 import com.library.book.model.Book;
 import com.library.book.model.GetBookResponse;
 
@@ -55,16 +56,30 @@ public class SQLManager {
 			ResultSet result = statement.executeQuery();
 			book = mapToBook(result);
 		} catch (SQLException e) {
-			logger.error("Error selecting book by name", e);
+			closeConnection();
+			logger.error("An error has occured while getting book from database", e);
 		}
-		closeConnection();
 		
 		return book;
 	}
 	
-	public void addBook()
+	public String addBook(AddBookRequest request)
 	{
-		
+		openConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO dbo.Book VALUES(?, ?, ? ,?) SET NOCOUNT ON"); //SET NOCOUNT ON is required to avoid 'the statement did not return a result set' exception
+			statement.setString(1, request.getName());
+			statement.setString(2, request.getAuthor());
+			statement.setObject(3, request.getEntryDate());
+			statement.setString(4, request.getTakenBy());
+			
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			closeConnection();
+			logger.error("An error has occured while a adding book to database", e);
+			return "An error has occured while a adding book to database";
+		}
+		return "Book successfully added";
 	}
 	
 	private Book mapToBook(ResultSet result)
