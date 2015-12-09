@@ -1,9 +1,9 @@
 package com.library.converters;
 
 import org.json.simple.JSONObject;
-import com.library.book.model.IBookRequest;
+import com.library.book.model.IRequest;
 
 public interface IJsonConverter {
 	
-	public IBookRequest convert(JSONObject request) throws Exception;
+	public IRequest convert(JSONObject request) throws Exception;
 }

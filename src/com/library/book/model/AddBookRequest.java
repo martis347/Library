@@ -2,7 +2,7 @@ package com.library.book.model;
 
 import java.sql.Date;
 
-public class AddBookRequest implements IBookRequest{
+public class AddBookRequest implements IRequest{
 	private String name;
 	private String author;
 	private Date entryDate;

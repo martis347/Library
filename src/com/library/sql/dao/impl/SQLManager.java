@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
@@ -100,4 +101,15 @@ public class SQLManager {
 		}
 		return book;
 	}
+
+	public ArrayList<String> searchByName(String name) {
+		ArrayList<String> list = new ArrayList<String>();
+		
+		list.add("FF");
+		list.add("LOL");
+		list.add("sdfsdfdsf");
+		list.add("sdfsdfsdf");
+		return list;
+	}
+
 }

@@ -13,6 +13,8 @@
 	
 	<bean id="getConverter" class="com.library.converters.GetBookJsonConverter"/>
 	<bean id="addConverter" class="com.library.converters.AddBookJsonConverter"/>
+	<bean id="searchConverter" class="com.library.converters.SearchJsonConverter"/>
+	
 	
 	<bean id="getHandler" class="com.library.handlers.GetBookHandler">
 		<constructor-arg ref="sqlDao"/>
@@ -22,6 +24,11 @@
 	<bean id="addHandler" class="com.library.handlers.AddBookHandler">
 		<constructor-arg ref="sqlDao"/>
 		<constructor-arg ref="addConverter"/>
+	</bean>
+	
+	<bean id="searchHandler" class="com.library.handlers.SearchHandler">
+		<constructor-arg ref="sqlDao"/>
+		<constructor-arg ref="searchConverter"/>
 	</bean>
 
 </beans>

@@ -3,9 +3,9 @@ package com.library.handlers;
 import org.json.simple.JSONObject;
 
 import com.library.book.model.GetBookResponse;
-import com.library.book.model.IBookResponse;
+import com.library.book.model.IResponse;
 
 public interface IHandler {
 
-	IBookResponse Handle(JSONObject request);
+	IResponse Handle(JSONObject request);
 }

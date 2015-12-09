@@ -6,7 +6,6 @@ import org.json.simple.JSONObject;
 import com.library.book.model.Book;
 import com.library.book.model.GetBookRequest;
 import com.library.book.model.GetBookResponse;
-import com.library.converters.GetBookJsonConverter;
 import com.library.converters.IJsonConverter;
 import com.library.sql.dao.impl.SQLManager;
 

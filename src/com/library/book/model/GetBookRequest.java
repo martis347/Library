@@ -1,6 +1,6 @@
 package com.library.book.model;
 
-public class GetBookRequest implements IBookRequest
+public class GetBookRequest implements IRequest
 {
 	private String name;
 	private String author;

@@ -2,7 +2,7 @@ package com.library.book.model;
 
 import org.apache.log4j.Logger;
 
-public class AddBookResponse implements IBookResponse {
+public class AddBookResponse implements IResponse {
 
 	private String message;
 	private static final Logger logger = Logger.getLogger(AddBookResponse.class.getName());

@@ -2,7 +2,7 @@ package com.library.book.model;
 
 import org.apache.log4j.Logger;
 
-public class GetBookResponse implements IBookResponse
+public class GetBookResponse implements IResponse
 {
 	private Book book;
 	private String message;

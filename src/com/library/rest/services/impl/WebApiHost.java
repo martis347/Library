@@ -2,8 +2,8 @@ package com.library.rest.services.impl;
 
 import com.library.rest.services.IWebApiHost;
 import com.library.book.model.AddBookResponse;
-import com.library.book.model.GetBookRequest;
 import com.library.book.model.GetBookResponse;
+import com.library.book.model.SearchResponse;
 import com.library.handlers.IHandler;
 import org.json.simple.JSONObject;
 import com.google.gson.*;
@@ -19,8 +19,11 @@ public class WebApiHost implements IWebApiHost
 	ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 	
 	public String search(JSONObject request) {
-		// TODO Implement metaphone
-		return null;
+		handler = (IHandler) context.getBean("searchHandler");
+		SearchResponse response = (SearchResponse) handler.Handle(request);
+		
+		Gson gson = new Gson();
+		return gson.toJson(response);
 	}
 	
 	public String getBook(JSONObject request) {

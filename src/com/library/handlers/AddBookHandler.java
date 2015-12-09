@@ -5,7 +5,6 @@ import java.sql.SQLDataException;
 import org.json.simple.JSONObject;
 import com.library.book.model.AddBookRequest;
 import com.library.book.model.AddBookResponse;
-import com.library.book.model.Book;
 import com.library.converters.IJsonConverter;
 import com.library.sql.dao.impl.SQLManager;
 

@@ -1,6 +1,6 @@
 package com.library.book.model;
 
-public interface IBookResponse {
+public interface IResponse {
 
 	public String message = "";
 }
