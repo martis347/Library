@@ -15,6 +15,9 @@
 	<bean id="addConverter" class="com.library.converters.AddBookJsonConverter"/>
 	<bean id="searchConverter" class="com.library.converters.SearchJsonConverter"/>
 	
+	<bean id="metaphone" class="com.library.metaphone.Metaphone"/>
+	
+	
 	
 	<bean id="getHandler" class="com.library.handlers.GetBookHandler">
 		<constructor-arg ref="sqlDao"/>
@@ -29,6 +32,7 @@
 	<bean id="searchHandler" class="com.library.handlers.SearchHandler">
 		<constructor-arg ref="sqlDao"/>
 		<constructor-arg ref="searchConverter"/>
+		<constructor-arg ref="metaphone"/>
 	</bean>
 
 </beans>

@@ -83,6 +83,21 @@ public class SQLManager {
 		return "Book successfully added";
 	}
 	
+	public ArrayList<String> searchByName() {
+		ArrayList<String> list = new ArrayList<String>();
+		
+		openConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("SELECT BookName FROM dbo.Book");
+			list = getWords(statement.executeQuery(), "BookName");
+
+		} catch (SQLException e) {
+			closeConnection();
+			logger.error("An error has occured while searching", e);
+		}		
+		return list;
+	}
+	
 	private Book mapToBook(ResultSet result)
 	{
 		Book book = new Book();
@@ -90,8 +105,7 @@ public class SQLManager {
 			if(!result.next())
 			{
 				return null;
-			}
-			
+			}	
             book.setName(result.getString("BookName"));
             book.setAuthor(result.getString("BookAuthor"));
             book.setEntryDate(result.getDate("EntryDate"));
@@ -102,14 +116,17 @@ public class SQLManager {
 		return book;
 	}
 
-	public ArrayList<String> searchByName(String name) {
+	private ArrayList<String> getWords(ResultSet result, String field)
+	{
 		ArrayList<String> list = new ArrayList<String>();
-		
-		list.add("FF");
-		list.add("LOL");
-		list.add("sdfsdfdsf");
-		list.add("sdfsdfsdf");
-		return list;
+		try {
+			while(result.next())
+			{
+				list.add(result.getString(field));
+			} 
+		} catch (Exception e) {
+			System.out.println("Error getting data from response");
+		}
+		return list;  
 	}
-
 }
