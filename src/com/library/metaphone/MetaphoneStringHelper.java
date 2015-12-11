@@ -1,32 +1,190 @@
 package com.library.metaphone;
 
-public class MetaphoneStringHelper {
-	
-	private static final String VOWELS = "àëáøûaeyuio";
+public class MetaphoneStringHelper implements IMetaphoneStringHelper {
 
-    public static MetaphoneString parse(String originalString)
-    {
+    private final char[] SKARD_CONSONANTS = {'b','d','g','z','þ'};
+    private final char[] DUSL_CONSONANTS = {'p','t','k','s','ð'};
+
+    public MetaphoneString parse(String originalString) {
         String metaphoneString = originalString.substring(0,1);
 
-        String c;
-        for(int i = 1; i < originalString.length(); i++)
-        {
-            c = Character.toString(originalString.charAt(i));
-            if(!VOWELS.contains(((c))))
-            {
-                metaphoneString = metaphoneString.concat(c);
+        for(int i = 1; i < originalString.length()-1; i++) {
+            char lc = Character.toLowerCase(originalString.charAt(i));
+            char prevLc = Character.toLowerCase(originalString.charAt(i-1));
+
+            //Skip duplicate letters
+            if(lc == prevLc) continue;
+
+            switch (lc){
+                case 'a':
+                    break;
+                case 'à':
+                    break;
+                case 'b':
+                    if(charArrayContains(DUSL_CONSONANTS, originalString.charAt(i+1))) {
+                        metaphoneString += 'p';
+                        break;
+                    }
+                    metaphoneString += lc;
+                    break;
+                case 'c':
+                    metaphoneString += lc;
+                    break;
+                case 'è':
+                    metaphoneString += lc;
+                    break;
+                case 'd':
+                    if(charArrayContains(DUSL_CONSONANTS, originalString.charAt(i+1))) {
+                        metaphoneString += 't';
+                        break;
+                    }
+                    metaphoneString += lc;
+                    break;
+                case 'e':
+                    // ieva -> jva
+                    if(i == 1 && prevLc == 'i')
+                        metaphoneString = "j";
+                    break;
+                case 'æ':
+                    break;
+                case 'ë':
+                    break;
+                case 'f':
+                    metaphoneString += lc;
+                    break;
+                case 'g':
+                    if(charArrayContains(DUSL_CONSONANTS, originalString.charAt(i+1))) {
+                        metaphoneString += 'k';
+                        break;
+                    }
+                    metaphoneString += lc;
+                    break;
+                case 'h':
+                    metaphoneString += lc;
+                    break;
+                case 'i':
+                    break;
+                case 'á':
+                    break;
+                case 'y':
+                    metaphoneString += lc;
+                    break;
+                case 'j':
+                    metaphoneString += lc;
+                    break;
+                case 'k':
+                    if(charArrayContains(SKARD_CONSONANTS, originalString.charAt(i+1))) {
+                        metaphoneString += 'g';
+                        break;
+                    }
+                    metaphoneString += lc;
+                    break;
+                case 'l':
+                    metaphoneString += lc;
+                    break;
+                case 'm':
+                    metaphoneString += lc;
+                    break;
+                case 'n':
+                    metaphoneString += lc;
+                    break;
+                case 'o':
+                    break;
+                case 'p':
+                    if(charArrayContains(SKARD_CONSONANTS, originalString.charAt(i+1))) {
+                        metaphoneString += 'b';
+                        break;
+                    }
+                    metaphoneString += lc;
+                    break;
+                case 'r':
+                    metaphoneString += lc;
+                    break;
+                case 's':
+                    if(charArrayContains(SKARD_CONSONANTS, originalString.charAt(i+1))) {
+                        metaphoneString += 'z';
+                        break;
+                    }
+                    metaphoneString += lc;
+                    break;
+                case 'ð':
+                    if(charArrayContains(SKARD_CONSONANTS, originalString.charAt(i+1))) {
+                        metaphoneString += 'þ';
+                        break;
+                    }
+                    metaphoneString += lc;
+                    break;
+                case 't':
+                    if(charArrayContains(SKARD_CONSONANTS, originalString.charAt(i+1))) {
+                        metaphoneString += 'd';
+                        break;
+                    }
+                    metaphoneString += lc;
+                    break;
+                case 'u':
+                    break;
+                case 'ø':
+                    break;
+                case 'û':
+                    break;
+                case 'v':
+                    metaphoneString += lc;
+                    break;
+                case 'z':
+                    if(charArrayContains(DUSL_CONSONANTS, originalString.charAt(i+1))) {
+                        metaphoneString += 's';
+                        break;
+                    }
+                    metaphoneString += lc;
+                    break;
+                case 'þ':
+                    if(charArrayContains(DUSL_CONSONANTS, originalString.charAt(i+1))) {
+                        metaphoneString += 'ð';
+                        break;
+                    }
+                    metaphoneString += lc;
+                    break;
             }
         }
 
-        if(metaphoneString.charAt(metaphoneString.length()-1) == 's')
-            metaphoneString = metaphoneString.substring(0, metaphoneString.length()-1);
+        //'s' in the end of the word is omitted due to being too common in male gender words
+        // TODO: Test whether it actually makes a difference in data
+        char c = originalString.charAt(originalString.length()-1);
+        if(c != 's') metaphoneString += c;
 
         return new MetaphoneString(originalString, metaphoneString);
     }
 
-    public static double compareJaroWrinkler(MetaphoneString a, MetaphoneString b){
-        String s1 = a.Value;
-        String s2 = b.Value;
+    public double compare(MetaphoneString a, MetaphoneString b){
+        MetaphoneString aEnglishized = new MetaphoneString(a.OriginalValue, a.Value);
+        aEnglishized.Value = aEnglishized.Value.replace('ð', 's');
+        aEnglishized.Value = aEnglishized.Value.replace('è', 'c');
+        aEnglishized.Value = aEnglishized.Value.replace('þ', 'z');
+        MetaphoneString bEnglishized = new MetaphoneString(b.OriginalValue, b.Value);
+        bEnglishized.Value = bEnglishized.Value.replace('ð', 's');
+        bEnglishized.Value = bEnglishized.Value.replace('è', 'c');
+        bEnglishized.Value = bEnglishized.Value.replace('þ', 'z');
+
+        double originalJaro = compareJaroWrinkler(a, b);
+        double englishizedJaro = compareJaroWrinkler(aEnglishized, bEnglishized);
+
+        if(englishizedJaro > originalJaro) return englishizedJaro;
+        else return originalJaro;
+
+    }
+
+    private boolean charArrayContains(char array[], char comparedItem){
+        for(char arrayItem : array){
+            if(arrayItem == comparedItem){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private double compareJaroWrinkler(MetaphoneString a, MetaphoneString b) {
+        String s1 = a.Value.toLowerCase();
+        String s2 = b.Value.toLowerCase();
         if (s1.equals(s2))
             return 1.0;
 
@@ -78,26 +236,6 @@ public class MetaphoneStringHelper {
 
         score = score + ((p * (1 - score)) / 10);
 
-        // (3) longer string adjustment
-        // I'm confused about this part. Winkler's original source code includes
-        // it, and Yancey's 2005 paper describes it. However, Winkler's list of
-        // test cases in his 2006 paper does not include this modification. So
-        // is this part of Jaro-Winkler, or is it not? Hard to say.
-        //
-        //   if (s1.length() >= 5 && // both strings at least 5 characters long
-        //       c - p >= 2 && // at least two common characters besides prefix
-        //       c - p >= ((s1.length() - p) / 2)) // fairly rich in common chars
-        //     {
-        //     System.out.println("ADJUSTED!");
-        //     score = score + ((1 - score) * ((c - (p + 1)) /
-        //                                     ((double) ((s1.length() + s2.length())
-        //                                                - (2 * (p - 1))))));
-        // }
-
-        // (4) similar characters adjustment
-        // the same holds for this as for (3) above.
-
         return score;
     }
-
 }

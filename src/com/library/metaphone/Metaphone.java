@@ -8,15 +8,16 @@ public class Metaphone {
 
 	public ArrayList<String> doTheMagic(ArrayList<String> list, String searchWord)
 	{
-		MetaphoneString parsedSearchWord = MetaphoneStringHelper.parse(searchWord);
+		MetaphoneStringHelper helper = new MetaphoneStringHelper();
+		MetaphoneString parsedSearchWord = helper.parse(searchWord);
 		HashMap<String, Double> map = new HashMap<String, Double>();
 		double length = 0;
 				
 		for(String listWord : list)
 		{
-			MetaphoneString parsedListWord = MetaphoneStringHelper.parse(listWord);
+			MetaphoneString parsedListWord = helper.parse(listWord);
 			
-			length = MetaphoneStringHelper.compareJaroWrinkler(parsedSearchWord, parsedListWord);
+			length = helper.compare(parsedSearchWord, parsedListWord);
 			System.out.println(length+ " = " + listWord);
 			map.put(listWord, length);
 		}
