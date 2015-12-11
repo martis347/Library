@@ -38,7 +38,7 @@ public class SearchHandler implements IHandler{
 			
 			allWords = getAllWords(searchRequest);
 			
-			matchingWords = metaphone.doTheMagic(allWords, searchObject);
+			matchingWords = metaphone.doTheMagic(allWords, searchRequest.getName());
 			
 			response.setValue(matchingWords, searchObject);
 			

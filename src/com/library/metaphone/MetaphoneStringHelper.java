@@ -2,7 +2,7 @@ package com.library.metaphone;
 
 public class MetaphoneStringHelper {
 	
-	private static final String VOWELS = "a?e??i?you??";
+	private static final String VOWELS = "àëáøûaeyuio";
 
     public static MetaphoneString parse(String originalString)
     {

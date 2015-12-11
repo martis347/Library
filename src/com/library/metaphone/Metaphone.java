@@ -31,7 +31,7 @@ public class Metaphone {
 			{
 				result.add(pair.getKey());
 			}
-	        System.out.println(pair.getKey() + " = " + pair.getValue());
+	        
 	        it.remove(); // avoids a ConcurrentModificationException
 	    }
 		
