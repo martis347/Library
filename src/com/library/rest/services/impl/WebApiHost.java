@@ -4,6 +4,7 @@ import com.library.rest.services.IWebApiHost;
 import com.library.book.model.AddBookResponse;
 import com.library.book.model.GetBookResponse;
 import com.library.book.model.SearchResponse;
+import com.library.book.model.UpdateBookResponse;
 import com.library.handlers.IHandler;
 import org.json.simple.JSONObject;
 import com.google.gson.*;
@@ -37,6 +38,14 @@ public class WebApiHost implements IWebApiHost
 	public String addBook(JSONObject request) {
 		handler = (IHandler) context.getBean("addHandler");
 		AddBookResponse response = (AddBookResponse) handler.Handle(request);
+		
+		Gson gson = new Gson();
+		return gson.toJson(response);
+	}
+	
+	public String updateBook(JSONObject request) {
+		handler = (IHandler) context.getBean("updateHandler");
+		UpdateBookResponse response = (UpdateBookResponse) handler.Handle(request);
 		
 		Gson gson = new Gson();
 		return gson.toJson(response);

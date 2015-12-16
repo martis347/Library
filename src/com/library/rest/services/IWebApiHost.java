@@ -26,4 +26,8 @@ public interface IWebApiHost
 	@POST
 	@Path("/addBook/")
 	public String addBook(JSONObject request);
+	
+	@POST
+	@Path("/updateBook/")
+	public String updateBook(JSONObject request);
 }

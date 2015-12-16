@@ -14,6 +14,7 @@
 	<bean id="getConverter" class="com.library.converters.GetBookJsonConverter"/>
 	<bean id="addConverter" class="com.library.converters.AddBookJsonConverter"/>
 	<bean id="searchConverter" class="com.library.converters.SearchJsonConverter"/>
+	<bean id="updateConverter" class="com.library.converters.UpdateJsonConverter"/>
 	
 	<bean id="metaphone" class="com.library.metaphone.Metaphone"/>
 	
@@ -33,6 +34,11 @@
 		<constructor-arg ref="sqlDao"/>
 		<constructor-arg ref="searchConverter"/>
 		<constructor-arg ref="metaphone"/>
+	</bean>
+	
+	<bean id="updateHandler" class="com.library.handlers.UpdateHandler">
+		<constructor-arg ref="sqlDao"/>
+		<constructor-arg ref="updateConverter"/>
 	</bean>
 
 </beans>

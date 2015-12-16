@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import com.library.book.model.AddBookRequest;
 import com.library.book.model.Book;
 import com.library.book.model.GetBookResponse;
+import com.library.book.model.UpdateBookRequest;
 
 public class SQLManager {
 	private String connectionString;
@@ -81,6 +82,52 @@ public class SQLManager {
 			return "An error has occured while a adding book to database";
 		}
 		return "Book successfully added";
+	}
+	
+	public Book updateBook(UpdateBookRequest request)
+	{
+		Book book = new Book();
+		PreparedStatement statement;
+		openConnection();
+		try {
+			statement = connection.prepareStatement("SELECT * FROM dbo.Book WHERE BookName = ? AND BookAuthor = ?");
+			statement.setString(1, request.getOldName());
+			statement.setString(2, request.getOldAuthor());
+			
+			ResultSet result = statement.executeQuery();
+			book = mapToBook(result);
+			
+			if(request.getNewName() != null && request.getNewAuthor() != null)
+			{
+				statement = connection.prepareStatement("UPDATE dbo.Book SET BookName = ?, BookAuthor = ? WHERE BookName = ? AND BookAuthor = ? SET NOCOUNT ON"); //SET NOCOUNT ON is required to avoid 'the statement did not return a result set' exception
+				statement.setString(1, request.getNewName());
+				statement.setString(2, request.getNewAuthor());
+				statement.setString(3, request.getOldName());
+				statement.setString(4, request.getOldAuthor());
+			}
+			else if(request.getNewName() != null && request.getNewAuthor() == null)
+			{
+				statement = connection.prepareStatement("UPDATE dbo.Book SET BookName = ? WHERE BookName = ? AND BookAuthor = ? SET NOCOUNT ON"); //SET NOCOUNT ON is required to avoid 'the statement did not return a result set' exception
+				statement.setString(1, request.getNewName());
+				statement.setString(2, request.getOldName());
+				statement.setString(3, request.getOldAuthor());
+			}
+			else if(request.getNewName() == null && request.getNewAuthor() != null)
+			{
+				statement = connection.prepareStatement("UPDATE dbo.Book SET BookAuthor = ? WHERE BookName = ? AND BookAuthor = ? SET NOCOUNT ON"); //SET NOCOUNT ON is required to avoid 'the statement did not return a result set' exception
+				statement.setString(1, request.getNewAuthor());
+				statement.setString(2, request.getOldName());
+				statement.setString(3, request.getOldAuthor());
+			}
+			
+			statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			closeConnection();
+			logger.error("An error has occured while updating book in database", e);
+			return new Book();
+		}
+		return book;
 	}
 	
 	public ArrayList<String> searchByName() {
