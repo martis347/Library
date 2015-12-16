@@ -4,26 +4,26 @@ import java.security.InvalidParameterException;
 import java.sql.Date;
 
 public class PutBookApiRequest implements IApiRequest {
-    private String Name;
-    private String Author;
-    private String TakenBy;
+    private String OldName;
+    private String OldAuthor;
+    private String NewName;
+    private String NewAuthor;
 
-    public PutBookApiRequest(String name, String author, String takenBy)
+    public PutBookApiRequest(String oldName, String oldAuthor, String newName, String newAuthor)
     {
-        if(name == null || author == null)
+        if(oldName == null || oldAuthor == null)
         {
-            throw new InvalidParameterException();
+            throw new InvalidParameterException("Name and Author of old book must be set");
         }
-        else
-        {
-            Name = name;
-            Author = author;
-            TakenBy = takenBy;
-        }
+        
+        OldName = oldName;
+        OldAuthor = oldAuthor;
+        NewName = newName;
+        NewAuthor = newAuthor;
     }
 
     @Override
     public String toJson() {
-        return String.format("{Author: %s, Name: %s}", Author, Name);
+        return String.format("{OldAuthor: %s, OldName: %s}", OldAuthor, OldName);
     }
 }
