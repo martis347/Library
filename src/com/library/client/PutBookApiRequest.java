@@ -1,7 +1,6 @@
 package com.library.client;
 
 import java.security.InvalidParameterException;
-import java.sql.Date;
 
 public class PutBookApiRequest implements IApiRequest {
     private String OldName;

@@ -1,25 +1,20 @@
 package com.library.client;
 
-import com.library.book.model.AddBookResponse;
-import com.library.book.model.Book;
-import com.library.book.model.UpdateBookResponse;
-
 import javax.net.ssl.HttpsURLConnection;
-
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.AbstractMap;
+import java.util.Map;
 import java.util.Set;
 
-public class LibraryApiClient extends AbstractMap<IApiRequest, JSONObject> {
+public class LibraryApiClient extends AbstractMap<IApiRequest, JSONObject> implements Map<IApiRequest, JSONObject> {
 
 	private static final Logger logger = Logger.getLogger(LibraryApiClient.class.getName());
     private final String API_URL;
@@ -27,27 +22,40 @@ public class LibraryApiClient extends AbstractMap<IApiRequest, JSONObject> {
     public LibraryApiClient(String url)  {
         API_URL = url;
     }
-
-    public JSONObject get(IApiRequest request) throws IOException {
+    
+    @Override
+    public JSONObject get(Object request) {
+    	
         GetBookApiRequest getRequest = (GetBookApiRequest) request;
 
-        JSONObject bookJson = executPostRequest("/getBook", getRequest);
+        JSONObject bookJson = null;
+		try {
+			bookJson = executPostRequest("/getBook", getRequest);
+		} catch (IOException e) {
+			logger.error("Server error", e);
+		}
         System.out.println(bookJson);
         return  bookJson;
     }
+    
+    public JSONObject add(Object request) throws Exception {
+        PutBookApiRequest addRequest = (PutBookApiRequest) request;
 
-    public JSONObject add(IApiRequest request, String s) throws Exception {
-        PutBookApiRequest putRequest = (PutBookApiRequest) request;
-
-        JSONObject addResponse = executPostRequest("/addBook", putRequest);
+        JSONObject addResponse = executPostRequest("/addBook", addRequest);
         System.out.println(addResponse);
         return addResponse;
     }
     
-    public JSONObject put(IApiRequest request, String s) throws Exception {
+    @Override
+    public JSONObject put(IApiRequest request, JSONObject s) {
         PutBookApiRequest putRequest = (PutBookApiRequest) request;
 
-        JSONObject putResponse = executPostRequest("/updateBook", putRequest);
+        JSONObject putResponse = null;
+		try {
+			putResponse = executPostRequest("/updateBook", putRequest);
+		} catch (IOException e) {
+			logger.error("Server error", e);
+		}
         System.out.println(putResponse);
         return putResponse;
     }
@@ -59,6 +67,8 @@ public class LibraryApiClient extends AbstractMap<IApiRequest, JSONObject> {
         System.out.println(searchResponse);
         return searchResponse;
     }
+    
+    
 
     private JSONObject executPostRequest(String requestUrl, IApiRequest request) throws IOException {
 
@@ -92,10 +102,11 @@ public class LibraryApiClient extends AbstractMap<IApiRequest, JSONObject> {
         
         return requestResponse;
     }
-
-	public Set<java.util.Map.Entry<IApiRequest, JSONObject>> entrySet() {
-		// TODO Auto-generated method stub
+    
+    public Set<java.util.Map.Entry<IApiRequest, JSONObject>> entrySet() {
 		return null;
 	}
+
+	
 
 }

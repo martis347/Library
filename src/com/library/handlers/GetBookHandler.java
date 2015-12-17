@@ -50,7 +50,7 @@ public class GetBookHandler implements IHandler {
 		}
 		if(book == null && request.getAuthor() != null )
 		{
-			//book = sqlManager.getBookByAuthor(request.getName());
+			book = sqlManager.getBookByAuthor(request.getName());
 		}
 		if (book == null)
 		{

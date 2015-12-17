@@ -2,9 +2,11 @@ package com.library.client;
 
 import java.util.HashMap;
 
-import org.json.simple.JSONObject;
+import org.apache.log4j.Logger;
 
 public class ClientImplementation {
+
+	private static final Logger logger = Logger.getLogger(ClientImplementation.class.getName());
 
 	LibraryApiClient  client = new LibraryApiClient("http://localhost:8080/Library/services");
 	
@@ -27,7 +29,20 @@ public class ClientImplementation {
 	SearchBookApiRequest searchBookRequest1 = new SearchBookApiRequest(null, "Sarlote Bronte");
 	SearchBookApiRequest searchBookRequest2 = new SearchBookApiRequest(null, "Harper Lee");
 	
-	client.put(putBookRequest1,"DD");
+
+    HashMap<Integer, String> hmap = new HashMap<Integer, String>();
+
+    public void main(String[] args)
+    {
+    	try {
+			client.add(addBookRequest1);
+			client.add(addBookRequest2);
+			client.add(addBookRequest3);
+			client.add(addBookRequest4);
+		} catch (Exception e) {
+			logger.error("Server error", e);
+		}
+    }
 	
 	
 	

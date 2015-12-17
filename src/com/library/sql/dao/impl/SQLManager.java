@@ -65,6 +65,23 @@ public class SQLManager {
 		return book;
 	}
 	
+	public Book getBookByAuthor(String bookAuthor) {
+		Book book = new Book();
+		openConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("SELECT * FROM dbo.Book WHERE BookAuthor=?");
+			statement.setString(1, bookAuthor);
+			
+			ResultSet result = statement.executeQuery();
+			book = mapToBook(result);
+		} catch (SQLException e) {
+			closeConnection();
+			logger.error("An error has occured while getting book from database", e);
+		}
+		
+		return book;
+	}
+	
 	public String addBook(AddBookRequest request)
 	{
 		openConnection();
@@ -145,6 +162,21 @@ public class SQLManager {
 		return list;
 	}
 	
+	public ArrayList<String> searchByAuthor(String author) {
+		ArrayList<String> list = new ArrayList<String>();
+		
+		openConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("SELECT BookAuthor FROM dbo.Book");
+			list = getWords(statement.executeQuery(), "BookAuthor");
+
+		} catch (SQLException e) {
+			closeConnection();
+			logger.error("An error has occured while searching", e);
+		}		
+		return list;
+	}
+	
 	private Book mapToBook(ResultSet result)
 	{
 		Book book = new Book();
@@ -176,4 +208,8 @@ public class SQLManager {
 		}
 		return list;  
 	}
+
+	
+
+	
 }

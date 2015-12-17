@@ -38,7 +38,7 @@ public class SearchHandler implements IHandler{
 			
 			allWords = getAllWords(searchRequest);
 			
-			matchingWords = metaphone.doTheMagic(allWords, searchRequest.getName());
+			matchingWords = metaphone.doTheMagic(allWords, searchRequest.getValue(searchObject));
 			
 			response.setValue(matchingWords, searchObject);
 			
@@ -69,12 +69,12 @@ public class SearchHandler implements IHandler{
 			list = sqlManager.searchByName();
 			searchObject = "name";
 		}
-		if(list == new ArrayList<String>() && searchRequest.getAuthor() != null )
+		if(list.size() == 0 && searchRequest.getAuthor() != null )
 		{
-			//list = sqlManager.searchByAuthor(searchRequest.getAuthor());
+			list = sqlManager.searchByAuthor(searchRequest.getAuthor());
 			searchObject = "author";
 		}
-		if (list == new ArrayList<String>())
+		if (list.size() == 0)
 		{
 			throw new SQLDataException("Sorry, database is empty");
 		}
